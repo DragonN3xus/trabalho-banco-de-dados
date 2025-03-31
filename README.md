@@ -6,17 +6,11 @@
 Feito por:
 
 Arthur dos Santos Gomes
-
 Bernardo Rocha Branco Ennes
-
 Iara Coutinho Ferreira Da Costa
-
 Jose Carlos Boaretto Netto
-
 Maria Eduarda Dos Santos Pereira Aragão
-
 Marlos Salles Bianna
-
 Victor da Silva Campos
 
  
