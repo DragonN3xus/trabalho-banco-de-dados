@@ -8,8 +8,8 @@ CREATE DATABASE trabalho;
 de realizar os outros comandos */
 CREATE SCHEMA clinica; 
 /* RODE O CREATE TYPE ANTES DE CRIAR AS TABELAS PARA EVITAR ERRO!!! */
-CREATE TYPE status_consulta AS ENUM ('Confirmada', 'Cancelada', 'Realizada');
-CREATE TYPE status_contato AS ENUM ('Principal', 'Emergencia');
+CREATE TYPE clinica.status_consulta AS ENUM ('Confirmada', 'Cancelada', 'Realizada');
+CREATE TYPE clinica.status_contato AS ENUM ('Principal', 'Emergencia');
 
 /* ========================= */
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS clinica.contato(
 idcontato SERIAL PRIMARY KEY, 
 idpaciente int REFERENCES clinica.paciente(idpaciente),
 telefone VARCHAR(11) NOT NULL,
-status status_contato NOT NULL);
+status clinica.status_contato NOT NULL);
 
 -- Procedimento:
 CREATE TABLE IF NOT EXISTS clinica.procedimento(
@@ -69,7 +69,7 @@ iddentista int REFERENCES clinica.dentista(iddentista));
 CREATE TABLE IF NOT EXISTS clinica.consulta(
 idconsulta SERIAL PRIMARY KEY,
 prescricao VARCHAR(150) NOT NULL,
-status status_consulta NOT NULL,
+status clinica.status_consulta NOT NULL,
 idpaciente int REFERENCES clinica.paciente(idpaciente),
 iddentista int REFERENCES clinica.dentista(iddentista),
 idespecialidade int REFERENCES clinica.especialidade(idespecialidade),
@@ -164,11 +164,11 @@ INSERT INTO
 clinica.consulta(status, idpaciente, iddentista, idespecialidade, idprocedimento, idhratendimento, prescricao)
 VALUES
 ('Cancelada', 1, 5, 1, 2, 1, 'Evitar alimentos duros por 24h após o procedimento'),
-('Cancelada', 2, 5, 1, 3, 2, 'Usar moldeira de clareamento por 2h diárias'),
+('Cancelada', 2, 6, 1, 3, 2, 'Usar moldeira de clareamento por 2h diárias'),
 ('Confirmada', 3, 6, 2, 4, 3, 'Aplicação de flúor semanal por 1 mês'),
 ('Confirmada', 4, 6, 2, 5, 4, 'Antibiótico por 5 dias e analgésicos se necessário'),
 ('Cancelada', 5, 7, 3, 6, 5, 'Repouso e compressa fria nas primeiras 24h'),
-('Confirmada', 6, 7, 3, 7, 6, 'Retorno em 15 dias para ajuste do aparelho'),
+('Confirmada', 6, 8, 3, 7, 6, 'Retorno em 15 dias para ajuste do aparelho'),
 ('Confirmada', 7, 8, 4, 8, 7, 'Uso de enxaguante bucal 2x ao dia por 7 dias'),
 ('Cancelada', 8, 8, 4, 9, 8, 'Dieta líquida nas primeiras 48h após cirurgia'),
 ('Confirmada', 9, 9, 1, 10, 9, 'Adaptação gradual à prótese, retorno em 7 dias'),
@@ -178,11 +178,16 @@ VALUES
 ('Realizada', 3, 1, 1, 4, 3, 'Seguir com escovação supervisionada por 1 semana'),
 ('Realizada', 4, 1, 1, 5, 4, 'Retorno em 10 dias para remoção de sutura'),
 ('Realizada', 5, 2, 2, 6, 5, 'Dieta pastosa por 3 dias e antibiótico conforme prescrição'),
-('Cancelada', 6, 2, 2, 7, 6, 'Higienização especial na área do aparelho fixo'),
+('Cancelada', 6, 3, 2, 7, 6, 'Higienização especial na área do aparelho fixo'),
 ('Realizada', 7, 3, 3, 8, 7, 'Usar enxaguante bucal sem álcool por 10 dias'),
 ('Realizada', 8, 3, 3, 9, 8, 'Repouso e medicação anti-inflamatória por 5 dias'),
 ('Realizada', 9, 4, 4, 10, 9, 'Adaptação à prótese em período de 15 dias'),
 ('Cancelada', 10, 4, 4, 1, 10, 'Escovação com dentifrício de baixa abrasividade');
+('Confirmada', 3, 1, 1, 7, 1, 'Ajuste do aparelho ortodôntico a cada 3 semanas'),
+('Cancelada', 7, 2, 2, 5, 2, 'Paciente solicitou reagendamento por motivos pessoais'),
+('Realizada', 2, 3, 3, 8, 3, 'Limpeza profunda concluída, retorno em 6 meses'),
+('Confirmada', 5, 4, 4, 1, 4, 'Escovação supervisionada com técnica Bass modificada'),
+('Realizada', 9, 1, 1, 3, 9, 'Clareamento finalizado, evitar alimentos com corantes por 72h');
 
 /* ========================= */
 /* 
