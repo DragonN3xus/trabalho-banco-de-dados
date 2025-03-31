@@ -75,6 +75,7 @@ iddentista int REFERENCES clinica.dentista(iddentista),
 idespecialidade int REFERENCES clinica.especialidade(idespecialidade),
 idprocedimento int REFERENCES clinica.procedimento(idprocedimento),
 idhratendimento int REFERENCES clinica.hratendimento(idhratendimento));
+
 /* ========================= */
 
 -- Inserção de valores nas Tabelas
@@ -182,7 +183,7 @@ VALUES
 ('Realizada', 7, 3, 3, 8, 7, 'Usar enxaguante bucal sem álcool por 10 dias'),
 ('Realizada', 8, 3, 3, 9, 8, 'Repouso e medicação anti-inflamatória por 5 dias'),
 ('Realizada', 9, 4, 4, 10, 9, 'Adaptação à prótese em período de 15 dias'),
-('Cancelada', 10, 4, 4, 1, 10, 'Escovação com dentifrício de baixa abrasividade');
+('Cancelada', 10, 4, 4, 1, 10, 'Escovação com dentifrício de baixa abrasividade'),
 ('Confirmada', 3, 1, 1, 7, 1, 'Ajuste do aparelho ortodôntico a cada 3 semanas'),
 ('Cancelada', 7, 2, 2, 5, 2, 'Paciente solicitou reagendamento por motivos pessoais'),
 ('Realizada', 2, 3, 3, 8, 3, 'Limpeza profunda concluída, retorno em 6 meses'),
@@ -281,6 +282,23 @@ FROM (
     GROUP BY 
         d.iddentista
 ) AS consultas_por_dentista;
+
+-- Consulta 5 / Média de consultas por dentista (corrigida)
+SELECT 
+    d.iddentista, 
+    d.nome AS nome_dentista, 
+    COUNT(c.idconsulta) AS total_consultas, 
+    ROUND(COUNT(c.idconsulta)::numeric / (SELECT COUNT(*) FROM clinica.dentista)::numeric, 2) AS media_consultas 
+FROM 
+    clinica.dentista d 
+LEFT JOIN 
+    clinica.consulta c ON d.iddentista = c.iddentista 
+LEFT JOIN 
+    clinica.procedimento proc ON c.idprocedimento = proc.idprocedimento 
+GROUP BY 
+    d.iddentista, d.nome 
+ORDER BY 
+    d.nome
 
 /* ========================= */
 /* 
