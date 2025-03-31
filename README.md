@@ -13,3 +13,6 @@ Marlos Salles Bianna
 Victor da Silva Campos
 
  
+![Modelo Conceitual](https://github.com/user-attachments/assets/f4330eb7-9409-4225-9a84-4aa4e7593e5d)
+![Modelo Fisico (BrModelo)](https://github.com/user-attachments/assets/21f4887d-3ac9-4c9e-9e82-e631a76f255a)
+![Modelo Fisico](https://github.com/user-attachments/assets/60151710-416d-4f6e-a1b8-55ce127b30d9)
