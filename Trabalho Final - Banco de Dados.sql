@@ -283,6 +283,9 @@ FROM (
         d.iddentista
 ) AS consultas_por_dentista;
 
+/* Devido ao problema de interpretação na questão o trabalho consta as duas versões propostas
+de realização do exercicio para motivos educacionais. */
+
 -- Consulta 5 / Média de consultas por dentista (corrigida)
 SELECT 
     d.iddentista, 
